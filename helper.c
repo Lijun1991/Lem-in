@@ -12,27 +12,27 @@
 
 #include "lemin.h"
 
-void	deep_free(char **info)
+void	deep_free(char **map)
 {
 	int i;
 
 	i = 0;
-	while (info[i])
+	while (map[i])
 	{
-		free(info[i]);
-		info[i] = NULL;
+		free(map[i]);
+		map[i] = NULL;
 		i++;
 	}
-	free(info);
-	info = NULL;
+	free(map);
+	map = NULL;
 }
 
-void	check_range(int count, char **info)
+void	check_range(int count, char **map)
 {
 	if (count > 10000)
 	{
 		perror("unsupport too large map");
-		deep_free(info);
+		deep_free(map);
 		exit(1);
 	}
 }

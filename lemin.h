@@ -18,10 +18,21 @@
 # include <stdlib.h>
 # include "./libft/libft.h"
 
+typedef struct	s_leminfo
+{
+	int count_line;
+	int	count_start;
+	int	count_end;
+	int	nbr_location;
+	int link_location;
+	char *nbr_of_ant;
+
+}				t_leminfo;
+
 /*
 ** helper.c
 */
-void	check_range(int count, char **info);
-void	deep_free(char **info);
+void	check_range(int count, char **map);
+void	deep_free(char **map);
 
 #endif

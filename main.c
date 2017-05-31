@@ -19,8 +19,11 @@ int	check_nbr_of_ants(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (!ft_isdigit(s[i]))
+		if (s[i] > 57 || s[i] < 48)
+		{
+			ft_printf("nbr is %c\n", s[i]);
 			return (1);
+		}
 		i++;
 	}
 	if (s[0] == '0')
@@ -28,26 +31,59 @@ int	check_nbr_of_ants(char *s)
 	return (0);
 }
 
-int	validate_map(char **info)
+int	check_dash(char *s)
 {
 	int i;
 
-	i = 1;
-	while (info[i])
+	i = 0;
+	while (s[i])
 	{
-		while (info[i][0] == "#")
-			i++:
-		if ((check_nbr_of_ants(info[i])))
+		if (s[i] == '-')
 			return (1);
 		i++;
-		if (info[i][0] == '#' && info[i][1] == '#')
-		{
-			if (!(!ft_strcmp(info[i], "##start") || !ft_strcmp(info[i], "##end")))
-				return (1);
-		}
-		if (info[i][0] != "#" && info[i][0] != "L")
-		i++;
 	}
+	return (0);
+}
+
+// int	check_room_link(char **info)
+// {
+
+// }
+
+int	validate_map(char **map, t_leminfo *info)
+{
+	int i;
+
+	i = 0;
+	while (map[i])
+	{
+		while (map[i][0] == '#')
+			i++;
+		if (!info->nbr_of_ant)
+		{
+			info->nbr_location = i;
+			info->nbr_of_ant = ft_strdup(map[i]);
+			ft_printf("indise nbr_of_ant is %s\n", info->nbr_of_ant);
+		}
+		i++;
+		while (!check_dash(map[i]))
+		{
+			if (!ft_strcmp(map[i], "##start\n"))
+				info->count_start++;
+			if (!ft_strcmp(map[i], "##end\n"))
+				info->count_end++;
+			i++;
+		}
+		if (info->link_location == 0)
+			info->link_location = i;
+		i++;
+		ft_printf("2indise nbr_of_ant is %s\n", info->nbr_of_ant);
+	}
+	ft_printf("nbr_of_ant is %s\n", info->nbr_of_ant);
+	// if (info->count_end != 1 || info->count_start != 1 || (check_nbr_of_ants(info->nbr_of_ant)))
+	// 	return (1);
+	// if (check_room_link(map))
+	// 	return (1);
 	return (0);
 }
 
@@ -55,23 +91,24 @@ int main(void)
 {
 	int		r;
 	char	*line;
-	char	**info;
-	int		count;
+	char	**map;
+	t_leminfo info;
 
-	count = 0;
-	info = (char**)malloc(sizeof(char*) * (10000 + 1));
+	ft_memset(&info, 0, sizeof(info));
+	map = (char**)malloc(sizeof(char*) * (10000 + 1));
 	while ((r = get_next_line(0, &line)) && r != -1)
 	{
-		info[count] = ft_strdup(line);
-		count++;
+		map[info.count_line] = ft_strdup(line);
+		info.count_line++;
 		free(line);
 		line = NULL;
 	}
-	info[count] = NULL;
-	check_range(count, info);
-	if (validate_map(info))
+	map[info.count_line] = NULL;
+	free(line);
+	check_range(info.count_line, map);
+	if (validate_map(map, &info))
 	{
-		deep_free(info);
+		deep_free(map);
 		perror("Invalid map");
 		return (1);
 	}
