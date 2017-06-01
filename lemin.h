@@ -38,9 +38,28 @@ typedef struct	s_leminfo
 }				t_leminfo;
 
 /*
+** validate_map1.c
+*/
+int		check_nbr_of_ants(char *s);
+int		get_room(char **map, t_leminfo *info);
+int		check_map(char **map, t_leminfo *info);
+void	validate_map(char **map, t_leminfo *info);
+
+/*
+** validate_map2.c
+*/
+int		check_hash_hash(char **map, t_leminfo *info);
+int		ck_is_int(char *s);
+int		ck_is_room_name(char *s, t_leminfo *info);
+int		check_room(t_leminfo *info);
+int		get_check_link(char **map, t_leminfo *info);
+
+/*
 ** helper.c
 */
 void	check_range(int count, char **map);
 void	deep_free(char **map);
+int		check_dash(char *s);
+int		count_hash(char *s);
 
 #endif

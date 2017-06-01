@@ -12,7 +12,7 @@
 
 NAME = lem-in
 
-SRC = main.c helper.c
+SRC = main.c helper.c validate_map1.c validate_map2.c
 
 OBJ = $(SRC:.c=.o)
 

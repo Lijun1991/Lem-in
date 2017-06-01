@@ -36,3 +36,35 @@ void	check_range(int count, char **map)
 		exit(1);
 	}
 }
+
+int		check_dash(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '-')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int		count_hash(char *s)
+{
+	int i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (s[i] == '-')
+			count++;
+		i++;
+	}
+	if (count != 1)
+		return (1);
+	return (0);
+}
