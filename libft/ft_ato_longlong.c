@@ -6,7 +6,7 @@
 /*   By: lwang <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/21 00:37:23 by lwang             #+#    #+#             */
-/*   Updated: 2017/05/21 00:37:25 by lwang            ###   ########.fr       */
+/*   Updated: 2017/05/31 17:44:51 by lwang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long long	ft_ato_longlong(char *str)
 {
 	int			i;
-	int			flag;
+	long long	flag;
 	long long	nb;
 
 	i = 0;

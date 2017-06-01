@@ -20,12 +20,20 @@
 
 typedef struct	s_leminfo
 {
-	int count_line;
-	int	count_start;
-	int	count_end;
-	int	nbr_location;
-	int link_location;
-	char *nbr_of_ant;
+	int		count_line;
+	int		count_start;
+	int		count_end;
+	int		count_room;
+	int		count_link;
+	int		nbr_location;
+	int		link_location;
+	char	*nbr_of_ant;
+	char	**tmp_room_name;
+	char	**room_name;
+	char	**room_x;
+	char	**room_y;
+	char	**tmp_link;
+	char	**link;
 
 }				t_leminfo;
 
