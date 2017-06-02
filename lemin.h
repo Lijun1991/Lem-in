@@ -16,7 +16,15 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include "./libft/libft.h"
+
+
+typedef struct 	s_vertex
+{
+	char	*name;
+	int		index;
+}				t_vertex;
 
 typedef struct	s_leminfo
 {
@@ -37,7 +45,7 @@ typedef struct	s_leminfo
 	char	**room_y;
 	char	**tmp_link;
 	char	**link;
-
+	char	**path;
 }				t_leminfo;
 
 /*

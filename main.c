@@ -69,16 +69,44 @@ char	***get_adj_list(t_leminfo *info)
 		ft_printf("\n%s %s %s %s %s\n", adj[j][0], adj[j][1], adj[j][2], adj[j][3], adj[j][4]);
 		j++;
 	}
-
 	return (adj);
 }
+
+
+
+
+
+// void	print_all_path_util(char *start, char *end, bool *vistited, char **path)
+// {
+
+
+// }
+
+
+
+// void	get_all_paths(char *start, char *end)
+// {
+// 	int i;
+// 	// int path_index;
+
+// 	i = 0;
+// 	bool *vistited = bool[info->room_total];
+// 	info->path = (char**)malloc(sizeof(char*) * (info->room_total + 1));
+// 	// path_index = 0;
+// 	while (i < info->room_total)
+// 	{
+// 		vistited[i] = false;
+// 		i++:
+// 	}
+	// print_all_path_util(start, end, vistited, info->path);
+// }
 
 void	print_lemin_result(t_leminfo *info, char **map)
 {
 	char ***adj;
 	print_map(map, info);
 	adj = get_adj_list(info);
-	get_all_paths(info->start, info->end);
+	// get_all_paths(info->start, info->end);
 }
 
 int	main(void)
@@ -90,7 +118,6 @@ int	main(void)
 
 	ft_memset(&info, 0, sizeof(t_leminfo));
 	map = (char**)malloc(sizeof(char*) * (10000 + 1));
-	r = -100;
 	while ((r = get_next_line(0, &line)) && r != -1)
 	{
 		map[info.count_line] = ft_strdup(line);
