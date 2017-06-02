@@ -23,7 +23,9 @@
 typedef struct 	s_vertex
 {
 	char	*name;
-	int		index;
+	int		i;
+	// int		start;
+	// int		end;
 }				t_vertex;
 
 typedef struct	s_leminfo
@@ -41,6 +43,7 @@ typedef struct	s_leminfo
 	int		room_total;
 	char	**tmp_room_name;
 	char	**room_name;
+	// t_vertex *room;
 	char	**room_x;
 	char	**room_y;
 	char	**tmp_link;

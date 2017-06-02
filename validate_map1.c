@@ -59,10 +59,7 @@ int		get_room(char **map, t_leminfo *info)
 		if (map[i][0] != '#')
 		{
 			info->tmp_room_name = ft_strsplit(map[i], ' ');
-			if (!(info->room_name[j] = ft_strdup(info->tmp_room_name[0])) || \
-				!(info->room_x[j] = ft_strdup(info->tmp_room_name[1])) || \
-				!(info->room_y[j] = ft_strdup(info->tmp_room_name[2])) || \
-				info->tmp_room_name[3])
+			if (!(info->room_name[j] = ft_strdup(info->tmp_room_name[0])) || !(info->room_x[j] = ft_strdup(info->tmp_room_name[1])) || !(info->room_y[j] = ft_strdup(info->tmp_room_name[2])) || info->tmp_room_name[3])
 				return (1);
 			j++;
 		}
