@@ -28,6 +28,9 @@ typedef struct	s_leminfo
 	int		nbr_location;
 	int		link_location;
 	char	*nbr_of_ant;
+	char	*start;
+	char	*end;
+	int		room_total;
 	char	**tmp_room_name;
 	char	**room_name;
 	char	**room_x;
@@ -36,6 +39,15 @@ typedef struct	s_leminfo
 	char	**link;
 
 }				t_leminfo;
+
+/*
+** print_map.c
+*/
+char	*get_start_room(char **map, t_leminfo *info);
+char	*get_end_room(char **map, t_leminfo *info);
+void	print_normal_room(char **map, t_leminfo *info, char *start, char *end);
+void	print_link(t_leminfo *info);
+void	print_map(char **map, t_leminfo *info);
 
 /*
 ** validate_map1.c
