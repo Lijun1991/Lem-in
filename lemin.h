@@ -20,13 +20,13 @@
 # include "./libft/libft.h"
 
 
-typedef struct 	s_vertex
-{
-	char	*name;
-	int		i;
-	// int		start;
-	// int		end;
-}				t_vertex;
+// typedef struct 	s_vertex
+// {
+// 	char	*name;
+// 	int		i;
+// 	// int		start;
+// 	// int		end;
+// }				t_vertex;
 
 typedef struct	s_leminfo
 {
