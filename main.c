@@ -75,7 +75,10 @@ char	***get_adj_list(t_leminfo *info)
 	int j = 0;
 	while (adj[j])
 	{
-		ft_printf("\n%s %s %s %s\n", adj[j][0], adj[j][1], adj[j][2], adj[j][3], adj[j][4], adj[j][5]);
+		i = 0;
+		while (adj[j][i])
+			ft_printf("\n%s ", adj[j][i++]);
+		ft_printf("\n");
 		j++;
 	}
 	return (adj);
@@ -289,11 +292,40 @@ int			check_end(t_leminfo *info)
 	return (0);
 }
 
+char		**remove_last(char **path)
+{
+	int i;
+	int len;
+	char **dst;
+
+	i = 0;
+	while (path[i])
+		i++;
+	ft_printf("i is %d\n", i);
+	len = i - 1;
+	i = 0;
+	dst = (char**)malloc(sizeof(char*) * (len + 1));
+	while (i < len)
+	{
+		dst[i] = ft_strdup(path[i]);
+		i++;
+	}
+
+	int z=0;
+	while (dst[z])
+	{
+		ft_printf("tmp path is %s\n", dst[z]);
+		z++;
+	}
+	deep_free(path);
+	return (dst);
+}
+
 void		find_path_till(t_leminfo *info, char ***adj, int i, int j)
 {
 	int tmp;
 	
-	ft_printf("i is %d info->path[i] is %s\n", i, info->path[i]);
+	ft_printf("the %dth path is info->path[i] is %s\n", i, info->path[i]);
 	if (check_end(info))
 	{
 		ft_printf("haha, found one\n");
@@ -309,18 +341,27 @@ void		find_path_till(t_leminfo *info, char ***adj, int i, int j)
 		tmp = loc(info->path[i], adj);
 		while (adj[tmp][j])
 		{	
-			ft_printf("tmp is %d j is %d, adj[tmp][j] is %s\n", tmp, j, adj[tmp][j]);
+			ft_printf("room in adj location is %d choose %dth one connected with room, adj[tmp][j] is %s\n", tmp, j, adj[tmp][j]);
 			if (!test_vist(adj[tmp][j], info->path))
 			{
 				info->path[i + 1] = ft_strdup(adj[tmp][j]);
 				info->path[i + 2] = NULL;
-				find_path_till(info, adj, i++, j);
+				ft_printf("now path is: ");
+				int z=0;
+				while (info->path[z])
+				{
+					ft_printf("%s ", info->path[z]);
+					z++;
+				}
+				ft_printf("done\n");
+				find_path_till(info, adj, ++i, j);
 			}
-			else
-				j++;
+			// else
+			j++;
 		}
 	}
-	// info->path[i - 1] = NULL;
+	info->path = remove_last(info->path);
+	// j--;
 }
 
 void		find_one_path(t_leminfo *info, char ***adj)
