@@ -248,6 +248,7 @@ int	**get_adj_matrix(t_leminfo *info)
 		tmp = ft_strsplit(info->link[i], '-');
 		// ft_printf("ft_atoi(tmp[0] is %d, ft_atoi(tmp[1] is %d\n", ft_atoi(tmp[0]), ft_atoi(tmp[1]));
 		adj[ft_atoi(tmp[0])][ft_atoi(tmp[1])] = 1;
+		adj[ft_atoi(tmp[1])][ft_atoi(tmp[0])] = 1;
 		i++;
 	}
 
@@ -275,7 +276,7 @@ int	print_lemin_result(t_leminfo *info, char **map)
 
 	adj = get_adj_matrix(info);
 
-	solve(adj, info);
+	solve_adj_matrix(adj, info);
 
 	return (0);
 }

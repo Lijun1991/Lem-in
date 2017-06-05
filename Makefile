@@ -12,7 +12,8 @@
 
 NAME = lem-in
 
-SRC = main.c helper.c validate_map1.c validate_map2.c print_map.c solve.c
+SRC = main.c helper.c validate_map1.c validate_map2.c print_map.c \
+solve_adj_matrix.c
 
 OBJ = $(SRC:.c=.o)
 

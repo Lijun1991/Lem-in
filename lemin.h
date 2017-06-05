@@ -28,13 +28,10 @@
 
 typedef struct 	s_vertex
 {
-	// int		**graph;
-	int		src;
-	int		dest;
+	int		**graph;
 	int 	*path;
   	int 	*visited;
-	// int		start;
-	// int		end;
+  	int		N;
 }				t_vertex;
 
 typedef struct	s_leminfo
@@ -65,7 +62,7 @@ char		*sep(char *s);
 /*
 ** solve.c
 */
-int solve(int **adj, t_leminfo *info);
+int		solve_adj_matrix(int **adj, t_leminfo *info);
 
 /*
 ** print_map.c
