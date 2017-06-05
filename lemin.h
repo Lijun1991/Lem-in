@@ -18,15 +18,24 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include "./libft/libft.h"
+# include <stdio.h>
+# include <string.h>
+
+// # define N 5
+# define true 1
+# define false 0
 
 
-// typedef struct 	s_vertex
-// {
-// 	char	*name;
-// 	int		i;
-// 	// int		start;
-// 	// int		end;
-// }				t_vertex;
+typedef struct 	s_vertex
+{
+	// int		**graph;
+	int		src;
+	int		dest;
+	int 	*path;
+  	int 	*visited;
+	// int		start;
+	// int		end;
+}				t_vertex;
 
 typedef struct	s_leminfo
 {
@@ -50,6 +59,13 @@ typedef struct	s_leminfo
 	char	**link;
 	char	**path;
 }				t_leminfo;
+
+char		*sep(char *s);
+
+/*
+** solve.c
+*/
+int solve(int **adj, t_leminfo *info);
 
 /*
 ** print_map.c
