@@ -277,7 +277,7 @@ int		**pick_path(t_leminfo *info)
 	z = 0;
 	ft_printf("\n");
 	dst = (int**)malloc(sizeof(int*) * info->room_total);
-	while (i < info->room_total)
+	while (i < info->count_path)
 	{
 		j = 0;
 		// dst[i] = (int*)malloc(sizeof(int) * info->room_total);
