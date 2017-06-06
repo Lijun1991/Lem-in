@@ -242,17 +242,16 @@ int	**get_adj_matrix(t_leminfo *info)
 		ft_memset(adj[j], 0, (sizeof(int) * info->room_total));
 		j++;
 	}
-	// ft_printf("j is %d\n", j);
 	while (info->link[i])
 	{
 		tmp = ft_strsplit(info->link[i], '-');
-		// ft_printf("ft_atoi(tmp[0] is %d, ft_atoi(tmp[1] is %d\n", ft_atoi(tmp[0]), ft_atoi(tmp[1]));
 		adj[ft_atoi(tmp[0])][ft_atoi(tmp[1])] = 1;
 		adj[ft_atoi(tmp[1])][ft_atoi(tmp[0])] = 1;
 		i++;
 	}
 
 	int z=0;
+	ft_printf("\n");
 	while (z < info->room_total)
 	{
 		int x=0;
@@ -267,16 +266,45 @@ int	**get_adj_matrix(t_leminfo *info)
 	return (adj);
 }
 
+int		**pick_path(t_leminfo *info)
+{
+	int i;
+	int j;
+	int	z;
+	int	**dst;
+
+	i = 0;
+	z = 0;
+	ft_printf("\n");
+	dst = (int**)malloc(sizeof(int*) * info->room_total);
+	while (i < info->room_total)
+	{
+		j = 0;
+		// dst[i] = (int*)malloc(sizeof(int) * info->room_total);
+		while (info->path[i][j] != -10)
+		{
+			// dst[i]
+			ft_printf("%d ", info->path[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
+	}
+	return (dst);
+}
 
 int	print_lemin_result(t_leminfo *info, char **map)
 {
 	int		**adj;
+	int		**final_path;
 
 	print_map(map, info);
 
 	adj = get_adj_matrix(info);
 
 	solve_adj_matrix(adj, info);
+
+	final_path = pick_path(info);
 
 	return (0);
 }

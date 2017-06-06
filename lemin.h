@@ -32,6 +32,7 @@ typedef struct 	s_vertex
 	int 	*path;
   	int 	*visited;
   	int		N;
+  	int		indx;
 }				t_vertex;
 
 typedef struct	s_leminfo
@@ -54,7 +55,8 @@ typedef struct	s_leminfo
 	char	**room_y;
 	char	**tmp_link;
 	char	**link;
-	char	**path;
+	int		**path;
+	int		count_path;
 }				t_leminfo;
 
 char		*sep(char *s);
