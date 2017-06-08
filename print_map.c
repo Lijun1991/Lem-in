@@ -86,3 +86,4 @@ void	print_map(char **map, t_leminfo *info)
 	print_normal_room(map, info, start, end);
 	print_link(info);
 }
+

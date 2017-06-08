@@ -21,11 +21,11 @@ static void	print_stack_element(int indx, int *path, t_leminfo *info)
 	info->path[info->count_path] = (int*)malloc(sizeof(int) * (indx + 1));
 	while (i < indx)
 	{
-		// ft_printf("%d ", path[i]);
+		ft_printf("%d ", path[i]);
 		info->path[info->count_path][i] = path[i];
 		i++;
 	}
-	// ft_printf("\n");
+	ft_printf("\n");
 	info->path[info->count_path][i] = -10;
 	// ft_printf("info->count_path is %d\n", info->count_path);
 	info->count_path++;
@@ -69,7 +69,7 @@ int		solve_adj_matrix(int **adj, t_leminfo *info)
 
 	info->count_path = 0;
 	info->path = (int**)malloc(sizeof(int*) * info->room_total);
-	// ft_printf("\n");
+	ft_printf("\n");
 	print_path (ft_atoi(sep(info->start)), ft_atoi(sep(info->end)), &v, info);
 	return (0);	
 }

@@ -59,7 +59,14 @@ typedef struct	s_leminfo
 	int		count_path;
 }				t_leminfo;
 
+
+/*
+** get_path.c
+*/
 char		*sep(char *s);
+int			**get_adj_matrix(t_leminfo *info);
+int			*get_dst(int len, t_leminfo *info);	
+int			*pick_path(t_leminfo *info);
 
 /*
 ** solve.c
