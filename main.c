@@ -12,18 +12,38 @@
 
 #include "lemin.h"
 
-// void	move_ants(t_leminfo *info, int *path)
-// {
-// 	int nbr;
-// 	int i;
+void	move_ants(t_leminfo *info, int *path, int len)
+{
+	int nbr;
+	int *stack;
+	int i;
+	int j;
+	int tmp;
 
-// 	i = 1;
-// 	nbr = ft_atoi(info->nbr_of_ant);
-// 	while (i < nbr)
-// 	{
-		
-// 	}
-// }
+	i = 1;
+	j = 0;
+	stack = (int*)malloc(sizeof(int) * len);
+	ft_memset (stack, 0, sizeof(stack));
+	nbr = ft_atoi(info->nbr_of_ant);
+	while (i <= len)
+	{
+		tmp = i;
+		while (tmp >= 1)
+		{
+			ft_printf("L%d-%d ", tmp, path[tmp - 1]);
+			tmp--;
+		}
+		// stack[i] = 1;
+		// j = 0;
+		// while (j < i && j && j - 1)
+		// {
+		// 	ft_printf("L%d-%d ", j, path[j - 1]);
+		// 	j++;
+		// }
+		ft_printf("\n");
+		i++;
+	}
+}
 
 int	print_lemin_result(t_leminfo *info, char **map)
 {
@@ -43,8 +63,8 @@ int	print_lemin_result(t_leminfo *info, char **map)
 		z++;
 	}
 	ft_printf("\n");
-
-	// move_ants(info, final_path);
+	ft_printf("\n");
+	move_ants(info, final_path, z);
 	return (0);
 }
 
