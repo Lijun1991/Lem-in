@@ -15,22 +15,29 @@
 void	move_ants(t_leminfo *info, int *path, int len)
 {
 	int nbr;
-	int *stack;
+	// int *stack;
 	int i;
 	int j;
 	int tmp;
 
 	i = 1;
-	j = 0;
-	stack = (int*)malloc(sizeof(int) * len);
-	ft_memset (stack, 0, sizeof(stack));
+	j = 1;
+	tmp = 0;
+	// stack = (int*)malloc(sizeof(int) * len);
+	// ft_memset (stack, 0, sizeof(stack));
 	nbr = ft_atoi(info->nbr_of_ant);
-	while (i <= len)
+	while (i <= len + nbr - 1)
 	{
-		tmp = i;
-		while (tmp >= 1)
+		tmp = i > nbr ? nbr : i;
+		while (tmp > 0)
 		{
-			ft_printf("L%d-%d ", tmp, path[tmp - 1]);
+			j = 1;
+			while (j <= tmp)
+			{
+			// 	ft_printf("tmp is %d\n", tmp);
+				ft_printf("L%d-%d ", j, path[tmp - j]);
+				j++;
+			}
 			tmp--;
 		}
 		// stack[i] = 1;
