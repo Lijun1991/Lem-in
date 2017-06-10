@@ -15,7 +15,6 @@
 void	move_ants(t_leminfo *info, int *path, int len)
 {
 	int nbr;
-	// int *stack;
 	int i;
 	int j;
 	int tmp;
