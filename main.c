@@ -23,8 +23,6 @@ void	move_ants(t_leminfo *info, int *path, int len)
 	i = 1;
 	j = 1;
 	tmp = 0;
-	// stack = (int*)malloc(sizeof(int) * len);
-	// ft_memset (stack, 0, sizeof(stack));
 	nbr = ft_atoi(info->nbr_of_ant);
 	while (i <= len + nbr - 1)
 	{
