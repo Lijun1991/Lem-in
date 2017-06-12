@@ -63,12 +63,17 @@
 
 int		*change_path(int *path, int len)
 {
+<<<<<<< HEAD
 	int *dst;
+=======
+	int nbr;
+>>>>>>> 034644dbf392a9287d57d49730c9cd4f3d5630ab
 	int i;
 	int j;
 
 	i = 0;
 	j = 1;
+<<<<<<< HEAD
 	dst = (int*)malloc(sizeof(int) * (len + 2));
 	dst[0] = -1;
 	while (i < len)
@@ -121,6 +126,9 @@ void	move_ants(t_leminfo *info, int *path, int len)
 	t_path **path
 
 	i = 0;
+=======
+	tmp = 0;
+>>>>>>> 034644dbf392a9287d57d49730c9cd4f3d5630ab
 	nbr = ft_atoi(info->nbr_of_ant);
 	stack = (int*)malloc(sizeof(int) * len);
 	ft_memset(stack, 0, len);
