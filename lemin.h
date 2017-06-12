@@ -21,10 +21,21 @@
 # include <stdio.h>
 # include <string.h>
 
-// # define N 5
 # define true 1
 # define false 0
 
+
+typedef struct	s_ant
+{
+	int indx;
+	int room;
+}				t_ant;
+
+typedef struct	s_path
+{
+	int full;
+	int nbr_room;
+}				t_path;
 
 typedef struct 	s_vertex
 {

@@ -12,44 +12,134 @@
 
 #include "lemin.h"
 
-void	move_ants(t_leminfo *info, int *path, int len)
+// void	move_ants(t_leminfo *info, int *path, int len)
+// {
+// 	int nbr;
+// 	int i;
+// 	int j;
+// 	int tmp;
+
+// 	i = 1;
+// 	j = 1;
+// 	tmp = 0;
+// 	nbr = ft_atoi(info->nbr_of_ant);
+// 	while (i <= len)
+// 	{
+// 		tmp = i;
+// 		j = 1;
+// 		while (tmp > 0 && path[tmp - j] != -10)
+// 		{
+// 			while (j <= tmp && j <= nbr && path[tmp - j] != -10)
+// 			{
+// 				ft_printf("L%d-%d%c", j, path[tmp - j], j < tmp && j < nbr ? ' ' : '\n');
+// 				j++;
+// 			}
+// 			tmp--;
+// 		}
+// 		i++;
+// 	}
+// 	ft_printf("here\n");
+// 	i--;
+// 	j = 1;
+// 	tmp = 0;
+// 	int 	tmp1;
+// 	tmp1 = 3;
+// 	while (j <= nbr - 1)
+// 	{
+// 		tmp = nbr - j;
+// 		tmp1--;
+// 		i = 4;
+// 		while (tmp > 0 && path[i - 1] != -10 && tmp1 <= nbr)
+// 		{
+// 			ft_printf("L%d-%d ", tmp1, path[i - 1]);
+// 			tmp--;
+// 			i--;
+// 			tmp1++;
+// 		}
+// 		ft_printf("\n");
+// 		j++;
+// 	}
+// }
+
+int		*change_path(int *path, int len)
 {
-	int nbr;
-	// int *stack;
+	int *dst;
 	int i;
 	int j;
-	int tmp;
 
-	i = 1;
+	i = 0;
 	j = 1;
-	tmp = 0;
-	// stack = (int*)malloc(sizeof(int) * len);
-	// ft_memset (stack, 0, sizeof(stack));
-	nbr = ft_atoi(info->nbr_of_ant);
-	while (i <= len + nbr - 1)
+	dst = (int*)malloc(sizeof(int) * (len + 2));
+	dst[0] = -1;
+	while (i < len)
 	{
-		tmp = i > nbr ? nbr : i;
-		while (tmp > 0)
-		{
-			j = 1;
-			while (j <= tmp)
-			{
-			// 	ft_printf("tmp is %d\n", tmp);
-				ft_printf("L%d-%d ", j, path[tmp - j]);
-				j++;
-			}
-			tmp--;
-		}
-		// stack[i] = 1;
-		// j = 0;
-		// while (j < i && j && j - 1)
-		// {
-		// 	ft_printf("L%d-%d ", j, path[j - 1]);
-		// 	j++;
-		// }
-		ft_printf("\n");
+		dst[j] = path[i];
+		i++;
+		j++;
+	}
+	dst[j] = -2;
+	return (dst);
+}
+
+void	check_all_ants(t_ant **ants, int *stack, int nbr)
+{
+	int i;
+
+	i = 0;
+	while (i < nbr)
+	{
+		if (ants[i]->room)
+	}
+}
+
+void	moveing(int *stack, int *path, int nbr, t_ant **ants)
+{
+	int i;
+
+	i = 0;
+	while (i < nbr)
+	{
+		if (i > 0 && i != nbr + 1)
+			stack[i - 1] = 0;
+		stack[i] = 1;
+		ants[i]->room = path[i];
+		check_all_ants(ants, stack, nbr);
 		i++;
 	}
+	
+
+}
+
+void	move_ants(t_leminfo *info, int *path, int len)
+{
+	// if (path)
+	// 	;
+	int nbr;
+	int	i;
+	int *stack;
+	t_ant **ants;
+	t_path **path
+
+	i = 0;
+	nbr = ft_atoi(info->nbr_of_ant);
+	stack = (int*)malloc(sizeof(int) * len);
+	ft_memset(stack, 0, len);
+	ants = (t_ant**)malloc(sizeof(t_ant*) * nbr);
+	while (i < nbr)
+	{
+		ants[i] = (t_ant*)malloc(sizeof(t_ant));
+		ants[i]->indx = i;
+		ants[i]->room = -1;
+		i++;
+	}
+	// i = 0;
+	// while (i < nbr)
+	// {
+	// 	ft_printf("%d, %d\n", ants[i]->indx, ants[i]->room);
+	// 	i++;
+	// }
+	path = change_path(path, len);
+	moveing(stack, path, nbr, ants);
 }
 
 int	print_lemin_result(t_leminfo *info, char **map)
