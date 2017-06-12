@@ -61,93 +61,60 @@
 // 	}
 // }
 
-int		*change_path(int *path, int len)
-{
-<<<<<<< HEAD
-	int *dst;
-=======
-	int nbr;
->>>>>>> 034644dbf392a9287d57d49730c9cd4f3d5630ab
-	int i;
-	int j;
-
-	i = 0;
-	j = 1;
-<<<<<<< HEAD
-	dst = (int*)malloc(sizeof(int) * (len + 2));
-	dst[0] = -1;
-	while (i < len)
-	{
-		dst[j] = path[i];
-		i++;
-		j++;
-	}
-	dst[j] = -2;
-	return (dst);
-}
-
-void	check_all_ants(t_ant **ants, int *stack, int nbr)
+void	moveing(int nbr, t_ant **ants)
 {
 	int i;
 
 	i = 0;
 	while (i < nbr)
 	{
-		if (ants[i]->room)
-	}
-}
+		// if (i - 1 > 0)
+		// {
+		// 	if (ants[i - 1]->path[0])
+		// }
 
-void	moveing(int *stack, int *path, int nbr, t_ant **ants)
-{
-	int i;
-
-	i = 0;
-	while (i < nbr)
-	{
-		if (i > 0 && i != nbr + 1)
-			stack[i - 1] = 0;
-		stack[i] = 1;
-		ants[i]->room = path[i];
-		check_all_ants(ants, stack, nbr);
-		i++;
 	}
 	
 
 }
 
+
 void	move_ants(t_leminfo *info, int *path, int len)
 {
-	// if (path)
-	// 	;
+	if (len)
+		;
 	int nbr;
 	int	i;
-	int *stack;
 	t_ant **ants;
-	t_path **path
 
 	i = 0;
-=======
-	tmp = 0;
->>>>>>> 034644dbf392a9287d57d49730c9cd4f3d5630ab
 	nbr = ft_atoi(info->nbr_of_ant);
-	stack = (int*)malloc(sizeof(int) * len);
-	ft_memset(stack, 0, len);
 	ants = (t_ant**)malloc(sizeof(t_ant*) * nbr);
 	while (i < nbr)
 	{
 		ants[i] = (t_ant*)malloc(sizeof(t_ant));
 		ants[i]->indx = i;
-		ants[i]->room = -1;
+		ants[i]->cur_room = -1;
+		ants[i]->path = path;
 		i++;
 	}
+
 	// i = 0;
+	// int j;
 	// while (i < nbr)
 	// {
-	// 	ft_printf("%d, %d\n", ants[i]->indx, ants[i]->room);
+	// 	j = 0;
+	// 	while (ants[i]->path[j] != -10)
+	// 	{
+
+	// 		ft_printf("%d ", ants[i]->path[j]);
+	// 		j++;
+	// 	}
+	// 	ft_printf("%d, %d\n", ants[i]->indx, ants[i]->cur_room);
 	// 	i++;
 	// }
-	path = change_path(path, len);
-	moveing(stack, path, nbr, ants);
+	// path = change_path(path, len);
+	moveing(nbr, ants);
 }
 
 int	print_lemin_result(t_leminfo *info, char **map)

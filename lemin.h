@@ -28,14 +28,16 @@
 typedef struct	s_ant
 {
 	int indx;
-	int room;
+	int cur_room;
+	int next_room;
+	int *path;
 }				t_ant;
 
-typedef struct	s_path
-{
-	int full;
-	int nbr_room;
-}				t_path;
+// typedef struct	s_path
+// {
+// 	int full;
+// 	int nbr_room;
+// }				t_path;
 
 typedef struct 	s_vertex
 {
