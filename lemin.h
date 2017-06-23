@@ -27,10 +27,12 @@
 
 typedef struct	s_ant
 {
-	int indx;
+	// int indx;
 	int cur_room;
 	int next_room;
-	int *path;
+	// int	next_room_taken;
+	
+	char *room_real_name;
 }				t_ant;
 
 // typedef struct	s_path
