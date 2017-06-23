@@ -27,11 +27,8 @@
 
 typedef struct	s_ant
 {
-	// int indx;
 	int cur_room;
 	int next_room;
-	// int	next_room_taken;
-	
 	char *room_real_name;
 }				t_ant;
 

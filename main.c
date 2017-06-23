@@ -12,49 +12,49 @@
 
 #include "lemin.h"
 
-int		*get_ants_path(int *path, int len)
-{
-	int *dst;
-	int	i;
-	int	j;
+// int		*get_ants_path(int *path, int len)
+// {
+// 	int *dst;
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	j = 0;
-	dst = (int*)malloc(sizeof(int) * (len + 2));
-	dst[i] = -1;
-	i++;
-	while (j < len)
-	{
-		dst[i] = path[j];
-		i++;
-		j++;
-	}
-	dst[i] = -2;
-	// i++;
-	// dst[i] = -3;
+// 	i = 0;
+// 	j = 0;
+// 	dst = (int*)malloc(sizeof(int) * (len + 2));
+// 	dst[i] = -1;
+// 	i++;
+// 	while (j < len)
+// 	{
+// 		dst[i] = path[j];
+// 		i++;
+// 		j++;
+// 	}
+// 	dst[i] = -2;
+// 	// i++;
+// 	// dst[i] = -3;
 
-	// int z=0;
-	// while (z < len + 2)
-	// {
-	// 	ft_printf("%d ", dst[z]);
-	// 	z++;
-	// }
-	// ft_printf("\n");
+// 	// int z=0;
+// 	// while (z < len + 2)
+// 	// {
+// 	// 	ft_printf("%d ", dst[z]);
+// 	// 	z++;
+// 	// }
+// 	// ft_printf("\n");
 
-	return (dst);
-}
+// 	return (dst);
+// }
 
-void	initial_ants(t_ant	*ants, int ants_total, int *path)
+void	initial_ants(t_ant	**ants, int ants_total, int *path)
 {
 	int i;
 
 	i = 0;
-	ants = (t_ant*)malloc(sizeof(t_ant) * ants_total);
-	ft_memset(ants, 0, sizeof(t_ant));
+	ants = (t_ant**)malloc(sizeof(t_ant*) * ants_total);
+	ft_memset(ants, 0, sizeof(t_ant*));
 	while (i < ants_total)
 	{
-		ants[i].cur_room = -1;
-		ants[i].next_room = path[0];
+		ants[i]->cur_room = path[0];
+		ants[i]->next_room = path[1];
 		i++;
 	}
 
@@ -80,9 +80,9 @@ int		*get_path_taken(int *path, t_leminfo *info)
 	return (dst);
 }
 
-void	update_path_taken(int *path_taken, int room_nbr)
+void	update_path_taken(int *path_taken, int room_nbr, int *path)
 {
-	if (room_nbr != -1)
+	if (room_nbr != path[0])
 	{
 		path_taken[room_nbr] = 1;
 		if (room_nbr > 0)
@@ -92,26 +92,26 @@ void	update_path_taken(int *path_taken, int room_nbr)
 
 void	move_ants(t_leminfo *info, int *path, int len, int ants_total)
 {
-	int		*ants_path;
+	// int		*ants_path;
 	int		*path_taken;
 	t_ant	*ants;
 	int		indx_ant;
 	int		indx_room;
 
 	ants = NULL;
-	ants_path = get_ants_path(path, len);
+	// ants_path = get_ants_path(path, len);
 	path_taken = get_path_taken(path, info);
-	initial_ants(ants, ants_total, path);
-	while (ants[ants_total - 1].cur_room != -2)
+	initial_ants(&ants, ants_total, path);
+	while (ants[ants_total - 1].cur_room != path[len - 1])
 	{
 		indx_ant = 0;
 		indx_room = 0;
 		while (indx_ant < ants_total)
 		{
-			if (!path_taken[ants[indx_ant].next_room] && ants[indx_ant].cur_room != -2)
+			if (!path_taken[ants[indx_ant].next_room] && ants[indx_ant].cur_room != path[len - 1])
 			{
 				get_ants_status(ants, path, indx_ant, indx_room);
-				update_path_taken(path_taken, ants[indx_ant].cur_room);
+				update_path_taken(path_taken, ants[indx_ant].cur_room, path);
 				ft_printf("L%d-%d ", indx_ant + 1, path[indx_room]);
 				indx_room++;
 			}
@@ -132,7 +132,8 @@ int	print_lemin_result(t_leminfo *info, char **map)
 	print_map(map, info);
 	adj = get_adj_matrix(info);
 	solve_adj_matrix(adj, info);
-	final_path = pick_path(info);
+	if (!(final_path = pick_path(info)))
+		return (0);
 
 	int z=0;
 	ft_printf("\n");
