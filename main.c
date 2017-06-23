@@ -53,9 +53,9 @@ void	initial_ants(t_ant	*ants, int ants_total, int *path)
 	ft_memset(ants, 0, sizeof(t_ant));
 	while (i < ants_total)
 	{
-		ants[i]->cur_room = -1;
-		ants[i]->next_room = path[0];
-		i++:
+		ants[i].cur_room = -1;
+		ants[i].next_room = path[0];
+		i++;
 	}
 
 	// int z=0;
@@ -63,36 +63,30 @@ void	initial_ants(t_ant	*ants, int ants_total, int *path)
 
 }
 
-void	get_ants_status(t_ant *ants, int *path, int ants_total, int index)
+void	get_ants_status(t_ant *ants, int *path, int indx_ant, int indx_room)
 {
-	int i;
-
-	i = 0;
-	while (i < ants_total)
-	{
-		ants[i]->cur_room = path[index];
-		ants[i]->next_room = path[index + 1];
-		i++;
-	}
-
+	ants[indx_ant].cur_room = path[indx_room];
+	ants[indx_ant].next_room = path[indx_room + 1];
 }
 
 int		*get_path_taken(int *path, t_leminfo *info)
 {
 	int *dst;
 
+	if (path)
+		;
 	dst = (int*)malloc(sizeof(int) * info->room_total);
 	ft_memset(dst, 0, sizeof(dst));
 	return (dst);
 }
 
-void	update_path_taken(int *path_taken, int i)
+void	update_path_taken(int *path_taken, int room_nbr)
 {
-	if (i != -1)
+	if (room_nbr != -1)
 	{
-		path_taken[i] = 1;
-		if (i > 0)
-			path_taken[i - 1] = 0;
+		path_taken[room_nbr] = 1;
+		if (room_nbr > 0)
+			path_taken[room_nbr - 1] = 0;
 	}
 }
 
@@ -101,32 +95,29 @@ void	move_ants(t_leminfo *info, int *path, int len, int ants_total)
 	int		*ants_path;
 	int		*path_taken;
 	t_ant	*ants;
-	int		i;
-	int		j;
+	int		indx_ant;
+	int		indx_room;
 
+	ants = NULL;
 	ants_path = get_ants_path(path, len);
 	path_taken = get_path_taken(path, info);
 	initial_ants(ants, ants_total, path);
-	while (ants[ants_total]->next_room != -2)
+	while (ants[ants_total - 1].cur_room != -2)
 	{
-		i = 0;
-		j = 0;
-		while (i < ants_total)
+		indx_ant = 0;
+		indx_room = 0;
+		while (indx_ant < ants_total)
 		{
-			if (!path_taken[ants[i]->next_room] && ants[i]->cur_room != -2)
+			if (!path_taken[ants[indx_ant].next_room] && ants[indx_ant].cur_room != -2)
 			{
-				get_ants_status(&ants, path, ants_total, j);
-				update_path_taken(path_taken, ants[i]->cur_room);
-				ft_printf("L%d-%d ", i, path[j]);
-				if (j + 1 < len)
-				{
-					ants[i]->cur_room = path[j];
-					ants[i]->next_room = path[j + 1];
-				}
-				j++;
+				get_ants_status(ants, path, indx_ant, indx_room);
+				update_path_taken(path_taken, ants[indx_ant].cur_room);
+				ft_printf("L%d-%d ", indx_ant + 1, path[indx_room]);
+				indx_room++;
 			}
-			i++;
+			indx_ant++;
 		}
+		ft_printf("\n");
 	}
 
 }
