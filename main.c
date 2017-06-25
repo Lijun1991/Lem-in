@@ -44,23 +44,24 @@
 // 	return (dst);
 // }
 
-void	initial_ants(t_ant	**ants, int ants_total, int *path)
+t_ant	*initial_ants(int ants_total, int *path)
 {
 	int i;
+	t_ant	*ants;
 
 	i = 0;
-	ants = (t_ant**)malloc(sizeof(t_ant*) * ants_total);
-	ft_memset(ants, 0, sizeof(t_ant*));
+	
+	ants = (t_ant*)malloc(sizeof(t_ant) * ants_total);
+	// ft_memset(*ants, 0, sizeof(t_ant*));
 	while (i < ants_total)
 	{
-		ants[i]->cur_room = path[0];
-		ants[i]->next_room = path[1];
+		// ants[i] = (t_ant*)malloc(sizeof(t_ant));
+		// ft_memset(ants, 0, sizeof(t_ant));
+		ants[i].cur_room = path[0];
+		ants[i].next_room = path[1];
 		i++;
 	}
-
-	// int z=0;
-	// while (z < )
-
+	return (ants);
 }
 
 void	get_ants_status(t_ant *ants, int *path, int indx_ant, int indx_room)
@@ -69,12 +70,10 @@ void	get_ants_status(t_ant *ants, int *path, int indx_ant, int indx_room)
 	ants[indx_ant].next_room = path[indx_room + 1];
 }
 
-int		*get_path_taken(int *path, t_leminfo *info)
+int		*get_path_taken(t_leminfo *info)
 {
 	int *dst;
 
-	if (path)
-		;
 	dst = (int*)malloc(sizeof(int) * info->room_total);
 	ft_memset(dst, 0, sizeof(dst));
 	return (dst);
@@ -92,22 +91,29 @@ void	update_path_taken(int *path_taken, int room_nbr, int *path)
 
 void	move_ants(t_leminfo *info, int *path, int len, int ants_total)
 {
-	// int		*ants_path;
 	int		*path_taken;
 	t_ant	*ants;
 	int		indx_ant;
 	int		indx_room;
+	int 	tmp_len;
+	int		count;
 
-	ants = NULL;
-	// ants_path = get_ants_path(path, len);
-	path_taken = get_path_taken(path, info);
-	initial_ants(&ants, ants_total, path);
-	while (ants[ants_total - 1].cur_room != path[len - 1])
+	tmp_len = len;
+	count = 0;
+	path_taken = get_path_taken(info);
+
+	ants = initial_ants(ants_total, path);
+
+	ft_printf("hello, ants_total is %d, path[0] is %d, info->nbr_of_ant %s, len is %d\n", ants_total, path[0], info->nbr_of_ant, len);
+	while (count < tmp_len - 1 + ants_total - 1)//ants[ants_total - 1].cur_room != path[len - 1] &&
 	{
+		ft_printf("hello1\n");
 		indx_ant = 0;
-		indx_room = 0;
+		indx_room = 1;
 		while (indx_ant < ants_total)
 		{
+			if (ants[ants_total - 1].cur_room != path[0])
+				tmp_len--;
 			if (!path_taken[ants[indx_ant].next_room] && ants[indx_ant].cur_room != path[len - 1])
 			{
 				get_ants_status(ants, path, indx_ant, indx_room);
@@ -118,6 +124,7 @@ void	move_ants(t_leminfo *info, int *path, int len, int ants_total)
 			indx_ant++;
 		}
 		ft_printf("\n");
+		count++;
 	}
 
 }
@@ -129,6 +136,7 @@ int	print_lemin_result(t_leminfo *info, char **map)
 	int		ants_total;
 
 	ants_total = ft_atoi(info->nbr_of_ant);
+
 	print_map(map, info);
 	adj = get_adj_matrix(info);
 	solve_adj_matrix(adj, info);
@@ -144,6 +152,7 @@ int	print_lemin_result(t_leminfo *info, char **map)
 	}
 	ft_printf("\n");
 	ft_printf("\n");
+
 	move_ants(info, final_path, z, ants_total);
 	return (0);
 }

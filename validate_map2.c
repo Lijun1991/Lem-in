@@ -22,10 +22,7 @@ int		check_nbr_of_ants(char *s)
 	while (s[i])
 	{
 		if (s[i] > 57 || s[i] < 48)
-		{
-			ft_printf("nbr is %c\n", s[i]);
 			return (1);
-		}
 		i++;
 	}
 	if (ft_ato_longlong(s) > 2147483647 || ft_ato_longlong(s) < 1)
