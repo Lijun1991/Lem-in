@@ -68,6 +68,7 @@ void	get_ants_status(t_ant *ants, int *path, int indx_ant, int indx_room)
 {
 	ants[indx_ant].cur_room = path[indx_room];
 	ants[indx_ant].next_room = path[indx_room + 1];
+	ft_printf("head cur room is %d, and next_room is %d\n", path[indx_room], path[indx_room + 1]);
 }
 
 int		*get_path_taken(t_leminfo *info)
@@ -76,6 +77,14 @@ int		*get_path_taken(t_leminfo *info)
 
 	dst = (int*)malloc(sizeof(int) * info->room_total);
 	ft_memset(dst, 0, sizeof(dst));
+
+	int z= 0;
+	while (z < info->room_total)
+	{
+		ft_printf("%d ", dst[z]);
+		z++;
+	}
+	ft_printf("\n");
 	return (dst);
 }
 
@@ -84,7 +93,7 @@ void	update_path_taken(int *path_taken, int room_nbr, int *path)
 	if (room_nbr != path[0])
 	{
 		path_taken[room_nbr] = 1;
-		if (room_nbr > 0)
+		if (room_nbr > path[1])
 			path_taken[room_nbr - 1] = 0;
 	}
 }
@@ -104,7 +113,7 @@ void	move_ants(t_leminfo *info, int *path, int len, int ants_total)
 
 	ants = initial_ants(ants_total, path);
 
-	ft_printf("hello, ants_total is %d, path[0] is %d, info->nbr_of_ant %s, len is %d\n", ants_total, path[0], info->nbr_of_ant, len);
+	ft_printf("hello, ants_total is %d, path[0] is %d, info->nbr_of_ant %s, len is %d, room_total is %d\n", ants_total, path[0], info->nbr_of_ant, len, info->room_total);
 	while (count < tmp_len - 1 + ants_total - 1)//ants[ants_total - 1].cur_room != path[len - 1] &&
 	{
 		ft_printf("hello1\n");
