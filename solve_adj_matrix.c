@@ -18,6 +18,7 @@ static void	print_stack_element(int indx, int *path, t_leminfo *info)
 
 	i = 0;
 
+	ft_printf("info->count_path is %d, indx is %d\n", info->count_path, indx);
 	info->path[info->count_path] = (int*)malloc(sizeof(int) * (indx + 1));
 	while (i < indx)
 	{
@@ -35,6 +36,7 @@ static void	print_path(int src, int dest, t_vertex *v, t_leminfo *info)
 {
 	int i;
 
+	i = 0;
 	v->visited[src] = true;
 	v->path[v->indx] = src;
 	v->indx++;
@@ -56,20 +58,31 @@ static void	print_path(int src, int dest, t_vertex *v, t_leminfo *info)
 	v->indx--;
 }
 
-int		solve_adj_matrix(int **adj, t_leminfo *info)
+t_vertex		*solve_adj_matrix(int **adj, t_leminfo *info)
 {
-	t_vertex v;
+	t_vertex *v;
+	int		src;
+	int		dest;
+	char	*start;
+	char	*end;
 
-	ft_memset(&v, 0, sizeof(t_vertex));
-	v.graph = adj;
-	v.N = info->room_total;
-	v.path = (int*)malloc(sizeof(int) * info->room_total);
-	v.visited = (int*)malloc(sizeof(int) * info->room_total);
-	ft_memset (v.visited, 0, sizeof (v.visited));
+	v = (t_vertex*)malloc(sizeof(t_vertex));
+	ft_memset(v, 0, sizeof(t_vertex));
+	v->graph = adj;
+	v->N = info->room_total;
+	v->path = (int*)malloc(sizeof(int) * info->room_total);
+	v->visited = (int*)malloc(sizeof(int) * info->room_total);
+	ft_memset (v->visited, 0, sizeof (v->visited));
 
 	info->count_path = 0;
-	info->path = (int**)malloc(sizeof(int*) * info->room_total);
+	info->path = (int**)malloc(sizeof(int*) * (MAX_ROOM_TOTAL + 1));
 	ft_printf("\n");
-	print_path (num_linked_room_name(sep(info->start), info), num_linked_room_name(sep(info->end), info), &v, info);
-	return (0);	
+	start = sep(info->start);
+	end = sep(info->end);
+	src = num_linked_room_name(start, info);
+	dest = num_linked_room_name(end, info);
+	free(start);
+	free(end);
+	print_path(src, dest, v, info);
+	return (v);	
 }

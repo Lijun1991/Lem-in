@@ -60,7 +60,11 @@ int		get_room(char **map, t_leminfo *info)
 		{
 			info->tmp_room_name = ft_strsplit(map[i], ' ');
 			if (!(info->room_name[j] = ft_strdup(info->tmp_room_name[0])) || !(info->room_x[j] = ft_strdup(info->tmp_room_name[1])) || !(info->room_y[j] = ft_strdup(info->tmp_room_name[2])) || info->tmp_room_name[3])
+			{
+				deep_free(info->tmp_room_name);
 				return (1);
+			}
+			deep_free(info->tmp_room_name);
 			j++;
 		}
 		i++;
@@ -155,6 +159,7 @@ int		check_map(char **map, t_leminfo *info)
 	}
 	if (get_check_link(map, info))
 	{
+		deep_free(info->tmp_link);
 		ft_printf("5hello\n");
 		return (1);
 	}

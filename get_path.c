@@ -15,9 +15,12 @@
 char		*sep(char *s)
 {
 	char **tmp;
+	char *dst;
 
 	tmp = ft_strsplit(s, ' ');
-	return (tmp[0]);
+	dst = ft_strdup(tmp[0]);
+	deep_free(tmp);
+	return (dst);
 }
 
 int			num_linked_room_name(char *room_name, t_leminfo *info)
@@ -28,9 +31,13 @@ int			num_linked_room_name(char *room_name, t_leminfo *info)
 	while (info->room_name[i])
 	{
 		if (!ft_strcmp(info->room_name[i], room_name))
+		{
+			// free(room_name);
 			return (i);
+		}
 		i++;
 	}
+	// free(room_name);
 	return (0);
 }
 
@@ -66,9 +73,9 @@ int			**get_adj_matrix(t_leminfo *info)
 	while (info->link[i])
 	{
 		tmp = ft_strsplit(info->link[i], '-');
-		// num_linked_room_name(tmp[0], info);
 		adj[num_linked_room_name(tmp[0], info)][num_linked_room_name(tmp[1], info)] = 1;
 		adj[num_linked_room_name(tmp[1], info)][num_linked_room_name(tmp[0], info)] = 1;
+		deep_free(tmp);
 		i++;
 	}
 
@@ -97,15 +104,12 @@ int			*get_dst(int len, t_leminfo *info)
 	{
 		j = 0;
 		while (info->path[i][j] != -10)
-		{
-			// ft_printf("info->path[i][j] is %d, len is %d, j is %d\n", info->path[i][j], len, j);
 			j++;
-		}
 		if (j == len)
 			return (info->path[i]);
 		i++;
 	}
-	ft_printf("sth wrong\n");
+	// ft_printf("sth wrong\n");
 	return (NULL);
 }
 
@@ -125,6 +129,6 @@ int			*pick_path(t_leminfo *info)
 		len = j > len ? len : j;
 		i++;
 	}
-	ft_printf("len is %d\n", len);
+	// ft_printf("len is %d\n", len);
 	return (get_dst(len, info));
 }

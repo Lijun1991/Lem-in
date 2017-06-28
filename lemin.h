@@ -24,19 +24,7 @@
 # define true 1
 # define false 0
 
-
-// typedef struct	s_ant
-// {
-// 	int cur_room;
-// 	int next_room;
-// 	char *room_real_name;
-// }				t_ant;
-
-// typedef struct	s_path
-// {
-// 	int full;
-// 	int nbr_room;
-// }				t_path;
+# define MAX_ROOM_TOTAL 10000
 
 typedef struct 	s_vertex
 {
@@ -62,15 +50,22 @@ typedef struct	s_leminfo
 	int		room_total;
 	char	**tmp_room_name;
 	char	**room_name;
-	// t_vertex *room;
 	char	**room_x;
 	char	**room_y;
 	char	**tmp_link;
 	char	**link;
 	int		**path;
 	int		count_path;
+	t_vertex *v;
 }				t_leminfo;
 
+/*
+** free.c
+*/
+void	free_everything(t_leminfo *info, char **map);
+void	deep_free(char **s);
+void	free_vertex(t_vertex *v, t_leminfo *info);
+void	deep_free_path(int **path, t_leminfo *info);
 
 /*
 ** get_path.c
@@ -82,9 +77,12 @@ int			*pick_path(t_leminfo *info);
 int			num_linked_room_name(char *room_name, t_leminfo *info);
 
 /*
-** solve.c
+** helper.c
 */
-int		solve_adj_matrix(int **adj, t_leminfo *info);
+void	check_range(int count, char **map);
+void	deep_free(char **map);
+int		check_dash(char *s);
+int		count_hash(char *s);
 
 /*
 ** print_map.c
@@ -94,6 +92,19 @@ char	*get_end_room(char **map, t_leminfo *info);
 void	print_normal_room(char **map, t_leminfo *info, char *start, char *end);
 void	print_link(t_leminfo *info);
 void	print_map(char **map, t_leminfo *info);
+
+/*
+** solve_adj_matrix.c
+*/
+t_vertex		*solve_adj_matrix(int **adj, t_leminfo *info);
+
+/*
+** solve_move_ants.c 
+*/
+void	move_ants(t_leminfo *info, int *path, int path_len, int ants_total);
+char	*rename_base_room_nbr(int nbr, t_leminfo *info);
+void	update_path_taken(int *path_taken, int room_nbr, int *path);
+int		*get_path_taken(t_leminfo *info);
 
 /*
 ** validate_map1.c
@@ -111,13 +122,5 @@ int		ck_is_int(char *s);
 int		ck_is_room_name(char *s, t_leminfo *info);
 int		check_room(t_leminfo *info);
 int		get_check_link(char **map, t_leminfo *info);
-
-/*
-** helper.c
-*/
-void	check_range(int count, char **map);
-void	deep_free(char **map);
-int		check_dash(char *s);
-int		count_hash(char *s);
 
 #endif

@@ -115,6 +115,7 @@ int		get_check_link(char **map, t_leminfo *info)
 			if (!ft_strcmp(info->tmp_link[0], info->tmp_link[1]))
 				return (1);
 			info->link[j] = ft_strdup(map[i]);
+			deep_free(info->tmp_link);
 			j++;
 		}
 		i++;
