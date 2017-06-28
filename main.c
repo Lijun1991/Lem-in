@@ -154,34 +154,34 @@ void	move_ants(t_leminfo *info, int *path, int path_len, int ants_total)
 	int		*path_taken;
 	int		tmp_path_len;
 	int		ant_nbr;
-	int		ant_get_end;
+	int		ant_reach_end;
 	int		move_times;
+	int		sign;
 
 	path_taken = get_path_taken(info);
 	move_times = path_len - 1 + ants_total - 1;
 
+	ant_reach_end = 0;
+	sign = 0;
 	path_taken[path[0]] = 1;
 	while (move_times)
 	{
 		ant_nbr = 1;
-		ant_get_end = 0;
+		if (ant_reach_end >= path_len - 1 + path_len - 2 + path_len - 3)
+		{
+			// ft_printf("hello\n");
+			sign++;
+			ant_nbr = ant_nbr + sign;
+		}
 		tmp_path_len = path_len - 1;
 		while (tmp_path_len > 0)
 		{
-			ant_nbr = ant_nbr + ant_get_end;
-			ft_printf("tmp_path_len is %d, path_taken[path[tmp_path_len - 1]] is %d, path_taken[path[tmp_path_len] is %d\n", tmp_path_len, path_taken[path[tmp_path_len - 1]], path_taken[path[tmp_path_len]]);
-			if (path_taken[path[tmp_path_len]] && tmp_path_len == path_len)
-			{
-			// 	ft_printf("L%d-%d ", ant_nbr, path[tmp_path_len]);
-			// 	path_taken[path[tmp_path_len - 1]] = 0;
-				ant_get_end++;
-			}
+			// ft_printf("tmp_path_len is %d, path_taken[path[tmp_path_len - 1]] is %d, path_taken[path[tmp_path_len] is %d\n", tmp_path_len, path_taken[path[tmp_path_len - 1]], path_taken[path[tmp_path_len]]);
 			if (path_taken[path[tmp_path_len - 1]] && !(path_taken[path[tmp_path_len]]))
 			{
-				ft_printf("find it\n");
-				ft_printf("L%d-%d ", ant_nbr, path[tmp_path_len]);
-				
-				if (path[tmp_path_len] == path)
+				if (ant_nbr <= ants_total)
+					ft_printf("L%d-%d ", ant_nbr, path[tmp_path_len]);
+				ant_reach_end++;
 				if (tmp_path_len != path_len - 1)
 					path_taken[path[tmp_path_len]] = 1;
 				if (tmp_path_len != 1)
@@ -189,18 +189,10 @@ void	move_ants(t_leminfo *info, int *path, int path_len, int ants_total)
 				ant_nbr++;
 			}
 			tmp_path_len--;
-			// ant_nbr++;
 		}
 		ft_printf("\n");
 		move_times--;
 	}
-
-	// if (path)
-	// 	;
-	// if (ants_total)
-	// 	;
-	// if (len)
-	// 	;
 }
 
 int	print_lemin_result(t_leminfo *info, char **map)
