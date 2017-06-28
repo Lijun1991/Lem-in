@@ -12,65 +12,6 @@
 
 #include "lemin.h"
 
-// int		*get_ants_path(int *path, int len)
-// {
-// 	int *dst;
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	dst = (int*)malloc(sizeof(int) * (len + 2));
-// 	dst[i] = -1;
-// 	i++;
-// 	while (j < len)
-// 	{
-// 		dst[i] = path[j];
-// 		i++;
-// 		j++;
-// 	}
-// 	dst[i] = -2;
-// 	// i++;
-// 	// dst[i] = -3;
-
-// 	// int z=0;
-// 	// while (z < len + 2)
-// 	// {
-// 	// 	ft_printf("%d ", dst[z]);
-// 	// 	z++;
-// 	// }
-// 	// ft_printf("\n");
-
-// 	return (dst);
-// }
-
-t_ant	*initial_ants(int ants_total, int *path)
-{
-	int i;
-	t_ant	*ants;
-
-	i = 0;
-	
-	ants = (t_ant*)malloc(sizeof(t_ant) * ants_total);
-	// ft_memset(*ants, 0, sizeof(t_ant*));
-	while (i < ants_total)
-	{
-		// ants[i] = (t_ant*)malloc(sizeof(t_ant));
-		// ft_memset(ants, 0, sizeof(t_ant));
-		ants[i].cur_room = path[0];
-		ants[i].next_room = path[1];
-		i++;
-	}
-	return (ants);
-}
-
-void	get_ants_status(t_ant *ants, int *path, int indx_ant, int indx_room)
-{
-	ants[indx_ant].cur_room = path[indx_room];
-	ants[indx_ant].next_room = path[indx_room + 1];
-	ft_printf("head cur room is %d, and next_room is %d\n", path[indx_room], path[indx_room + 1]);
-}
-
 int		*get_path_taken(t_leminfo *info)
 {
 	int *dst;
@@ -78,13 +19,13 @@ int		*get_path_taken(t_leminfo *info)
 	dst = (int*)malloc(sizeof(int) * info->room_total);
 	ft_memset(dst, 0, sizeof(dst));
 
-	int z= 0;
-	while (z < info->room_total)
-	{
-		ft_printf("%d ", dst[z]);
-		z++;
-	}
-	ft_printf("\n");
+	// int z= 0;
+	// while (z < info->room_total)
+	// {
+	// 	ft_printf("%d ", dst[z]);
+	// 	z++;
+	// }
+	// ft_printf("\n");
 	return (dst);
 }
 
@@ -98,56 +39,19 @@ void	update_path_taken(int *path_taken, int room_nbr, int *path)
 	}
 }
 
-// void	move_ants(t_leminfo *info, int *path, int len, int ants_total)
-// {
-// 	int		*path_taken;
-// 	t_ant	*ants;
-// 	int		indx_ant;
-// 	int		indx_room;
-// 	int 	tmp_len;
-// 	int		count;
-// 	int 	tmp_index_room;
+char	*rename_base_room_nbr(int nbr, t_leminfo *info)
+{
+	int i;
 
-// 	tmp_len = len;
-// 	count = 0;
-// 	// indx_room = 1;
-// 	path_taken = get_path_taken(info);
-
-// 	ants = initial_ants(ants_total, path);
-
-// 	ft_printf("hello, ants_total is %d, path[0] is %d, info->nbr_of_ant %s, len is %d, room_total is %d\n", ants_total, path[0], info->nbr_of_ant, len, info->room_total);
-// 	while (count < tmp_len - 1 + ants_total - 1)//ants[ants_total - 1].cur_room != path[len - 1] &&
-// 	{
-// 		ft_printf("hello1\n");
-// 		indx_ant = 0;
-// 		indx_room = 1;
-// 		tmp_index_room = info->room_total;
-// 		while (tmp_index_room > 1)
-// 		{
-// 			while (indx_ant < ants_total)
-// 			{
-// 				ft_printf("hello inside\n");
-// 				if (ants[ants_total - 1].cur_room != path[0])
-// 					tmp_len--;
-// 				// ft_printf("path_taken[ants[indx_ant].next_room] is %d\n", path_taken[ants[indx_ant].next_room]);
-// 				// ft_printf("ants[indx_ant].next_room is %d\n", ants[indx_ant].next_room);
-// 				// ft_printf("ants[indx_ant] is %d\n", ants[indx_ant]);
-// 				if (!path_taken[ants[indx_ant].next_room] && ants[indx_ant].cur_room != path[len - 1])
-// 				{
-// 					get_ants_status(ants, path, indx_ant, indx_room);
-// 					update_path_taken(path_taken, ants[indx_ant].cur_room, path);
-// 					ft_printf("L%d-%d ", indx_ant + 1, path[indx_room]);
-// 					indx_room++;
-// 				}
-// 				indx_ant++;
-// 			}
-// 			tmp_index_room--;
-// 		}
-// 		ft_printf("\n");
-// 		count++;
-// 	}
-
-// }
+	i = 0;
+	while (info->room_name[i])
+	{
+		if (i == nbr)
+			return (info->room_name[i]);
+		i++;
+	}
+	return (NULL);
+}
 
 void	move_ants(t_leminfo *info, int *path, int path_len, int ants_total)
 {
@@ -169,7 +73,6 @@ void	move_ants(t_leminfo *info, int *path, int path_len, int ants_total)
 		ant_nbr = 1;
 		if (ant_reach_end >= path_len - 1 + path_len - 2 + path_len - 3)
 		{
-			// ft_printf("hello\n");
 			sign++;
 			ant_nbr = ant_nbr + sign;
 		}
@@ -180,7 +83,7 @@ void	move_ants(t_leminfo *info, int *path, int path_len, int ants_total)
 			if (path_taken[path[tmp_path_len - 1]] && !(path_taken[path[tmp_path_len]]))
 			{
 				if (ant_nbr <= ants_total)
-					ft_printf("L%d-%d ", ant_nbr, path[tmp_path_len]);
+					ft_printf("L%d-%s ", ant_nbr, rename_base_room_nbr(path[tmp_path_len], info));
 				ant_reach_end++;
 				if (tmp_path_len != path_len - 1)
 					path_taken[path[tmp_path_len]] = 1;

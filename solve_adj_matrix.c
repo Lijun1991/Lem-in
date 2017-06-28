@@ -70,6 +70,6 @@ int		solve_adj_matrix(int **adj, t_leminfo *info)
 	info->count_path = 0;
 	info->path = (int**)malloc(sizeof(int*) * info->room_total);
 	ft_printf("\n");
-	print_path (ft_atoi(sep(info->start)), ft_atoi(sep(info->end)), &v, info);
+	print_path (num_linked_room_name(sep(info->start), info), num_linked_room_name(sep(info->end), info), &v, info);
 	return (0);	
 }

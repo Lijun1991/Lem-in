@@ -20,6 +20,20 @@ char		*sep(char *s)
 	return (tmp[0]);
 }
 
+int			num_linked_room_name(char *room_name, t_leminfo *info)
+{
+	int i;
+
+	i = 0;
+	while (info->room_name[i])
+	{
+		if (!ft_strcmp(info->room_name[i], room_name))
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
 int			**get_adj_matrix(t_leminfo *info)
 {
 	int **adj;
@@ -29,6 +43,14 @@ int			**get_adj_matrix(t_leminfo *info)
 
 	i = 0;
 	j = 0;
+
+	int x=0;
+	while (info->room_name[x])
+	{
+		ft_printf("room_name[%d] is %s\n", x, info->room_name[x]);
+		x++;
+	}
+
 	while (info->room_name[i])
 		i++;
 	info->room_total = i;
@@ -44,8 +66,9 @@ int			**get_adj_matrix(t_leminfo *info)
 	while (info->link[i])
 	{
 		tmp = ft_strsplit(info->link[i], '-');
-		adj[ft_atoi(tmp[0])][ft_atoi(tmp[1])] = 1;
-		adj[ft_atoi(tmp[1])][ft_atoi(tmp[0])] = 1;
+		// num_linked_room_name(tmp[0], info);
+		adj[num_linked_room_name(tmp[0], info)][num_linked_room_name(tmp[1], info)] = 1;
+		adj[num_linked_room_name(tmp[1], info)][num_linked_room_name(tmp[0], info)] = 1;
 		i++;
 	}
 
@@ -75,10 +98,12 @@ int			*get_dst(int len, t_leminfo *info)
 		j = 0;
 		while (info->path[i][j] != -10)
 		{
+			// ft_printf("info->path[i][j] is %d, len is %d, j is %d\n", info->path[i][j], len, j);
 			j++;
 		}
 		if (j == len)
 			return (info->path[i]);
+		i++;
 	}
 	ft_printf("sth wrong\n");
 	return (NULL);
@@ -100,6 +125,6 @@ int			*pick_path(t_leminfo *info)
 		len = j > len ? len : j;
 		i++;
 	}
-	// ft_printf("len is %d\n", len);
+	ft_printf("len is %d\n", len);
 	return (get_dst(len, info));
 }

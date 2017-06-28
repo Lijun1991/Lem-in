@@ -25,12 +25,12 @@
 # define false 0
 
 
-typedef struct	s_ant
-{
-	int cur_room;
-	int next_room;
-	char *room_real_name;
-}				t_ant;
+// typedef struct	s_ant
+// {
+// 	int cur_room;
+// 	int next_room;
+// 	char *room_real_name;
+// }				t_ant;
 
 // typedef struct	s_path
 // {
@@ -79,6 +79,7 @@ char		*sep(char *s);
 int			**get_adj_matrix(t_leminfo *info);
 int			*get_dst(int len, t_leminfo *info);	
 int			*pick_path(t_leminfo *info);
+int			num_linked_room_name(char *room_name, t_leminfo *info);
 
 /*
 ** solve.c
