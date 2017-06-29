@@ -55,7 +55,8 @@ void	print_normal_room(char **map, t_leminfo *info, char *start, char *end)
 	i = info->nbr_location + 1;
 	while (i < info->link_location)
 	{
-		if (map[i][0] != '#' && ft_strcmp(map[i], start) && ft_strcmp(map[i], end))
+		if (map[i][0] != '#' && ft_strcmp(map[i], start) \
+			&& ft_strcmp(map[i], end))
 			ft_printf("%s\n", map[i]);
 		i++;
 	}

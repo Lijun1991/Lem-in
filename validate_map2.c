@@ -93,6 +93,20 @@ int		check_room(t_leminfo *info)
 	return (0);
 }
 
+int		get_check_link_helper(char **map, t_leminfo *info, int i)
+{
+	if (count_dash(map[i]))
+		return (1);
+	if (!info->tmp_link[0] || !info->tmp_link[1] || info->tmp_link[2])
+		return (1);
+	if (!ck_is_room_name(info->tmp_link[0], info) \
+		|| !ck_is_room_name(info->tmp_link[1], info))
+		return (1);
+	if (!ft_strcmp(info->tmp_link[0], info->tmp_link[1]))
+		return (1);
+	return (0);
+}
+
 int		get_check_link(char **map, t_leminfo *info)
 {
 	int i;
@@ -107,13 +121,7 @@ int		get_check_link(char **map, t_leminfo *info)
 		if (map[i][0] != '#')
 		{
 			info->tmp_link = ft_strsplit(map[i], '-');
-			if (count_dash(map[i]))
-				return (1);
-			if (!info->tmp_link[0] || !info->tmp_link[1] || info->tmp_link[2])
-				return (1);
-			if (!ck_is_room_name(info->tmp_link[0], info) || !ck_is_room_name(info->tmp_link[1], info))
-				return (1);
-			if (!ft_strcmp(info->tmp_link[0], info->tmp_link[1]))
+			if (get_check_link_helper(map, info, i))
 				return (1);
 			info->link[j] = ft_strdup(map[i]);
 			deep_free(info->tmp_link);

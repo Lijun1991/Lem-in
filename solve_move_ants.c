@@ -56,7 +56,6 @@ void	move_ants(t_leminfo *info, int *path, int path_len, int ants_total)
 
 	path_taken = get_path_taken(info);
 	move_times = path_len - 1 + ants_total - 1;
-
 	ant_reach_end = 0;
 	sign = 0;
 	path_taken[path[0]] = 1;
@@ -64,10 +63,8 @@ void	move_ants(t_leminfo *info, int *path, int path_len, int ants_total)
 	{
 		ant_nbr = 1;
 		if (ant_reach_end >= path_len - 1 + path_len - 2 + path_len - 3)
-		{
 			sign++;
-			ant_nbr = ant_nbr + sign;
-		}
+		ant_nbr = ant_nbr + sign;
 		tmp_path_len = path_len - 1;
 		while (tmp_path_len > 0)
 		{

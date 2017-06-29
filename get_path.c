@@ -37,10 +37,27 @@ int			num_linked_room_name(char *room_name, t_leminfo *info)
 	return (0);
 }
 
+void	fill_adj_matrix(t_leminfo *info, int **adj)
+{
+	char **tmp;
+	int		i;
+
+	i = 0;
+	while (info->link[i])
+	{
+		tmp = ft_strsplit(info->link[i], '-');
+		adj[num_linked_room_name(tmp[0], info)]\
+		[num_linked_room_name(tmp[1], info)] = 1;
+		adj[num_linked_room_name(tmp[1], info)]\
+		[num_linked_room_name(tmp[0], info)] = 1;
+		deep_free(tmp);
+		i++;
+	}
+}
+
 int			**get_adj_matrix(t_leminfo *info)
 {
 	int **adj;
-	char **tmp;
 	int i;
 	int j;
 
@@ -51,34 +68,13 @@ int			**get_adj_matrix(t_leminfo *info)
 	info->room_total = i;
 	adj = (int**)malloc(sizeof(int*) * i);
 	ft_memset(adj, 0, sizeof(int*) * i);
-	i = 0;
 	while (j < info->room_total)
 	{
 		adj[j] = (int*)malloc(sizeof(int) * info->room_total);
 		ft_memset(adj[j], 0, (sizeof(int) * info->room_total));
 		j++;
 	}
-	while (info->link[i])
-	{
-		tmp = ft_strsplit(info->link[i], '-');
-		adj[num_linked_room_name(tmp[0], info)][num_linked_room_name(tmp[1], info)] = 1;
-		adj[num_linked_room_name(tmp[1], info)][num_linked_room_name(tmp[0], info)] = 1;
-		deep_free(tmp);
-		i++;
-	}
-
-	// int z=0;
-	// while (z < info->room_total)
-	// {
-	// 	int x=0;
-	// 	while (x < info->room_total)
-	// 	{
-	// 		ft_printf("%d ", adj[z][x]);
-	// 		x++;
-	// 	}
-	// 	ft_printf("\n");
-	// 	z++;
-	// }
+	fill_adj_matrix(info, adj);
 	return (adj);
 }
 
@@ -97,7 +93,6 @@ int			*get_dst(int len, t_leminfo *info)
 			return (info->path[i]);
 		i++;
 	}
-	// ft_printf("sth wrong\n");
 	return (NULL);
 }
 
