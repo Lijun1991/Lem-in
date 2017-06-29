@@ -65,7 +65,7 @@ typedef struct	s_leminfo
 void	free_everything(t_leminfo *info, char **map);
 void	deep_free(char **s);
 void	free_vertex(t_vertex *v, t_leminfo *info);
-void	deep_free_path(int **path, t_leminfo *info);
+void	deep_free_path(int **path);
 
 /*
 ** get_path.c

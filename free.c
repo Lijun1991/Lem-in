@@ -44,12 +44,12 @@ void	deep_free(char **s)
 	s = NULL;
 }
 
-void	deep_free_path(int **path, t_leminfo *info)
+void	deep_free_path(int **path)
 {
 	int i;
 
 	i = 0;
-	while (i < info->count_path - 1)
+	while (i < MAX_ROOM_TOTAL)
 	{
 		free(path[i]);
 		i++;
@@ -69,5 +69,5 @@ void	free_everything(t_leminfo *info, char **map)
 	deep_free(info->room_x);
 	deep_free(info->room_y);
 	deep_free(info->link);
-	deep_free_path(info->path, info);
+	deep_free_path(info->path);
 }

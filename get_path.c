@@ -51,18 +51,15 @@ int			**get_adj_matrix(t_leminfo *info)
 	i = 0;
 	j = 0;
 
-	int x=0;
-	while (info->room_name[x])
-	{
-		ft_printf("room_name[%d] is %s\n", x, info->room_name[x]);
-		x++;
-	}
+	// int x=0;
+	// while (info->room_name[x])
+	// 	x++;
 
 	while (info->room_name[i])
 		i++;
 	info->room_total = i;
 	adj = (int**)malloc(sizeof(int*) * i);
-
+	ft_memset(adj, 0, sizeof(int*) * i);
 	i = 0;
 	while (j < info->room_total)
 	{
@@ -79,18 +76,18 @@ int			**get_adj_matrix(t_leminfo *info)
 		i++;
 	}
 
-	int z=0;
-	while (z < info->room_total)
-	{
-		int x=0;
-		while (x < info->room_total)
-		{
-			ft_printf("%d ", adj[z][x]);
-			x++;
-		}
-		ft_printf("\n");
-		z++;
-	}
+	// int z=0;
+	// while (z < info->room_total)
+	// {
+	// 	int x=0;
+	// 	while (x < info->room_total)
+	// 	{
+	// 		ft_printf("%d ", adj[z][x]);
+	// 		x++;
+	// 	}
+	// 	ft_printf("\n");
+	// 	z++;
+	// }
 	return (adj);
 }
 

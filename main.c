@@ -52,6 +52,7 @@ int	main(void)
 
 	ft_memset(&info, 0, sizeof(t_leminfo));
 	map = (char**)malloc(sizeof(char*) * (MAX_ROOM_TOTAL + 1));
+	ft_memset(map, 0, sizeof(char*) * (MAX_ROOM_TOTAL + 1));
 	while ((r = get_next_line(0, &line)) && r != -1)
 	{
 		map[info.count_line] = ft_strdup(line);
@@ -65,6 +66,7 @@ int	main(void)
 	if (check_map(map, &info))
 	{
 		deep_free(map);
+		free(info.nbr_of_ant);
 		perror("Invalid map");
 		return (1);
 	}
