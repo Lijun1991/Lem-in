@@ -66,6 +66,7 @@ void	free_everything(t_leminfo *info, char **map);
 void	deep_free(char **s);
 void	free_vertex(t_vertex *v, t_leminfo *info);
 void	deep_free_path(int **path);
+void	free_room(t_leminfo *info, char **map);
 
 /*
 ** get_path.c
@@ -82,7 +83,7 @@ int			num_linked_room_name(char *room_name, t_leminfo *info);
 void	check_range(int count, char **map);
 void	deep_free(char **map);
 int		check_dash(char *s);
-int		count_hash(char *s);
+int		count_dash(char *s);
 
 /*
 ** print_map.c

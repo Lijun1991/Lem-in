@@ -71,7 +71,6 @@ void	move_ants(t_leminfo *info, int *path, int path_len, int ants_total)
 		tmp_path_len = path_len - 1;
 		while (tmp_path_len > 0)
 		{
-			// ft_printf("tmp_path_len is %d, path_taken[path[tmp_path_len - 1]] is %d, path_taken[path[tmp_path_len] is %d\n", tmp_path_len, path_taken[path[tmp_path_len - 1]], path_taken[path[tmp_path_len]]);
 			if (path_taken[path[tmp_path_len - 1]] && !(path_taken[path[tmp_path_len]]))
 			{
 				if (ant_nbr <= ants_total)

@@ -12,21 +12,6 @@
 
 #include "lemin.h"
 
-// void	deep_free(char **map)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (map[i])
-// 	{
-// 		free(map[i]);
-// 		map[i] = NULL;
-// 		i++;
-// 	}
-// 	free(map);
-// 	map = NULL;
-// }
-
 void	check_range(int count, char **map)
 {
 	if (count > MAX_ROOM_TOTAL)
@@ -51,7 +36,7 @@ int		check_dash(char *s)
 	return (0);
 }
 
-int		count_hash(char *s)
+int		count_dash(char *s)
 {
 	int i;
 	int	count;

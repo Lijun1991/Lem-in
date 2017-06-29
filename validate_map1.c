@@ -40,8 +40,17 @@ int		check_hash_hash(char **map, t_leminfo *info)
 			info->count_link++;
 		i++;
 	}
-	// ft_printf("info->count_room is %d, info->count_link is %d\n", info->count_room, info->count_link);
 	return (0);
+}
+
+static void	prepare(t_leminfo *info)
+{
+	info->room_name = (char**)malloc(sizeof(char*) * (info->count_room + 1));
+	ft_memset(info->room_name, 0, sizeof(char*) * (info->count_room + 1));
+	info->room_x = (char**)malloc(sizeof(char*) * (info->count_room + 1));
+	ft_memset(info->room_x, 0, sizeof(char*) * (info->count_room + 1));
+	info->room_y = (char**)malloc(sizeof(char*) * (info->count_room + 1));
+	ft_memset(info->room_y, 0, sizeof(char*) * (info->count_room + 1));
 }
 
 int		get_room(char **map, t_leminfo *info)
@@ -51,19 +60,17 @@ int		get_room(char **map, t_leminfo *info)
 
 	i = info->nbr_location + 1;
 	j = 0;
-	info->room_name = (char**)malloc(sizeof(char*) * (info->count_room + 1));
-	info->room_x = (char**)malloc(sizeof(char*) * (info->count_room + 1));
-	info->room_y = (char**)malloc(sizeof(char*) * (info->count_room + 1));
+	prepare(info);
 	while (i < info->link_location)
 	{
 		if (map[i][0] != '#')
 		{
 			info->tmp_room_name = ft_strsplit(map[i], ' ');
-			if (!(info->room_name[j] = ft_strdup(info->tmp_room_name[0])) || !(info->room_x[j] = ft_strdup(info->tmp_room_name[1])) || !(info->room_y[j] = ft_strdup(info->tmp_room_name[2])) || info->tmp_room_name[3])
-			{
-				deep_free(info->tmp_room_name);
+			if (!(info->room_name[j] = ft_strdup(info->tmp_room_name[0])) \
+				|| !(info->room_x[j] = ft_strdup(info->tmp_room_name[1])) \
+				|| !(info->room_y[j] = ft_strdup(info->tmp_room_name[2])) \
+				|| info->tmp_room_name[3])
 				return (1);
-			}
 			deep_free(info->tmp_room_name);
 			j++;
 		}
@@ -122,10 +129,31 @@ int		ck_start_end(char **map, t_leminfo *info)
 		if (!ft_strcmp(map[i], "##start") || !ft_strcmp(map[i], "##end"))
 		{
 			i++;
-			if (map[i][0] == '#' || map[i][0] == 'L' || i >= info->link_location)
+			if (map[i][0] == '#' || map[i][0] == 'L' \
+				|| i >= info->link_location)
 				return (1);
 		}
 		i++;
+	}
+	return (0);
+}
+
+static int		check_map_helper(char **map, t_leminfo *info)
+{
+	if (get_check_link(map, info))
+	{
+		free(info->nbr_of_ant);
+		free_room(info, map);
+		deep_free(info->link);
+		deep_free(info->tmp_link);
+		return (1);
+	}
+	if (ck_link_repeat(info) || ck_start_end(map, info))
+	{
+		free(info->nbr_of_ant);
+		free_room(info, map);
+		deep_free(info->link);
+		return (1);
 	}
 	return (0);
 }
@@ -134,40 +162,25 @@ int		check_map(char **map, t_leminfo *info)
 {
 	if (info->count_end != 1 || info->count_start != 1)
 	{
-		ft_printf("hello\n");
+		free(info->nbr_of_ant);
+		deep_free(map);
 		return (1);
 	}
-	if (check_nbr_of_ants(info->nbr_of_ant))
+	if (check_nbr_of_ants(info->nbr_of_ant) || check_hash_hash(map, info))
 	{
-		ft_printf("1hello\n");
+		free(info->nbr_of_ant);
+		deep_free(map);
 		return (1);
 	}
-	if (check_hash_hash(map, info))
+	if (get_room(map, info) || check_room(info))
 	{
-		ft_printf("2hello\n");
+		free(info->nbr_of_ant);
+		deep_free(info->tmp_room_name);
+		free_room(info, map);
 		return (1);
 	}
-	if (get_room(map, info))
-	{
-		ft_printf("3hello\n");
+	if (check_map_helper(map, info))
 		return (1);
-	}
-	if (check_room(info))
-	{
-		ft_printf("4hello\n");
-		return (1);
-	}
-	if (get_check_link(map, info))
-	{
-		deep_free(info->tmp_link);
-		ft_printf("5hello\n");
-		return (1);
-	}
-	if (ck_link_repeat(info) || ck_start_end(map, info))
-	{
-		ft_printf("6hello\n");
-		return (1);
-	}
 	return (0);
 }
 
@@ -198,7 +211,4 @@ void	validate_map(char **map, t_leminfo *info)
 			info->link_location = i;
 		i++;
 	}
-	// ft_printf("nbr_location is %d, link_location is %d\n", info->nbr_location, info->link_location);
-	// ft_printf("info->count_end is %d, info->count_start is %d\n", info->count_end, info->count_start);
-	// ft_printf("nbr_of_ant is %s\n", info->nbr_of_ant);
 }

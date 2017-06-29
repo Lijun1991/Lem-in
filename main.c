@@ -17,29 +17,21 @@ int	print_lemin_result(t_leminfo *info, char **map)
 	int		**adj;
 	int		*final_path;
 	int		ants_total;
+	int		len;
 
+	len = 0;
 	ants_total = ft_atoi(info->nbr_of_ant);
-
 	print_map(map, info);
 	adj = get_adj_matrix(info);
 	info->v = solve_adj_matrix(adj, info);
 	if (!(final_path = pick_path(info)))
 	{
 		free_everything(info, map);
-		perror("Invalid map");
 		return (1);
 	}
-	int z=0;
-	ft_printf("\n");
-	while (final_path[z] != -10)
-	{
-		ft_printf("%d ", final_path[z]);
-		z++;
-	}
-	ft_printf("\n");
-	ft_printf("\n");
-
-	move_ants(info, final_path, z, ants_total);
+	while (final_path[len] != -10)
+		len++;
+	move_ants(info, final_path, len, ants_total);
 	return (0);
 }
 
@@ -61,16 +53,11 @@ int	main(void)
 	}
 	map[info.count_line] = NULL;
 	check_range(info.count_line, map);
-
 	validate_map(map, &info);
-	if (check_map(map, &info))
+	if (check_map(map, &info) || print_lemin_result(&info, map))
 	{
-		deep_free(map);
-		free(info.nbr_of_ant);
 		perror("Invalid map");
 		return (1);
 	}
-	if (print_lemin_result(&info, map))
-		return (1);
 	free_everything(&info, map);
 }

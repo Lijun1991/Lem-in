@@ -101,13 +101,14 @@ int		get_check_link(char **map, t_leminfo *info)
 	i = info->link_location;
 	j = 0;
 	info->link = (char**)malloc(sizeof(char*) * (info->count_link + 1));
+	ft_memset(info->link, 0, sizeof(char*) * (info->count_link + 1));
 	while (map[i])
 	{
 		if (map[i][0] != '#')
 		{
-			if (count_hash(map[i]))
-				return (1);
 			info->tmp_link = ft_strsplit(map[i], '-');
+			if (count_dash(map[i]))
+				return (1);
 			if (!info->tmp_link[0] || !info->tmp_link[1] || info->tmp_link[2])
 				return (1);
 			if (!ck_is_room_name(info->tmp_link[0], info) || !ck_is_room_name(info->tmp_link[1], info))

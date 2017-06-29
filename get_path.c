@@ -31,13 +31,9 @@ int			num_linked_room_name(char *room_name, t_leminfo *info)
 	while (info->room_name[i])
 	{
 		if (!ft_strcmp(info->room_name[i], room_name))
-		{
-			// free(room_name);
 			return (i);
-		}
 		i++;
 	}
-	// free(room_name);
 	return (0);
 }
 
@@ -50,11 +46,6 @@ int			**get_adj_matrix(t_leminfo *info)
 
 	i = 0;
 	j = 0;
-
-	// int x=0;
-	// while (info->room_name[x])
-	// 	x++;
-
 	while (info->room_name[i])
 		i++;
 	info->room_total = i;
@@ -126,6 +117,5 @@ int			*pick_path(t_leminfo *info)
 		len = j > len ? len : j;
 		i++;
 	}
-	// ft_printf("len is %d\n", len);
 	return (get_dst(len, info));
 }

@@ -57,6 +57,14 @@ void	deep_free_path(int **path)
 	free(path);
 }
 
+void	free_room(t_leminfo *info, char **map)
+{
+	deep_free(map);
+	deep_free(info->room_name);
+	deep_free(info->room_x);
+	deep_free(info->room_y);
+}
+
 void	free_everything(t_leminfo *info, char **map)
 {
 	free_vertex(info->v, info);
@@ -64,7 +72,6 @@ void	free_everything(t_leminfo *info, char **map)
 	free(info->nbr_of_ant);
 	free(info->start);
 	free(info->end);
-	// deep_free(info->tmp_room_name);
 	deep_free(info->room_name);
 	deep_free(info->room_x);
 	deep_free(info->room_y);
