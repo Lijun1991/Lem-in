@@ -42,7 +42,7 @@ char	*get_end_room(char **map, t_leminfo *info)
 			i++;
 			break ;
 		}
-		i++;	
+		i++;
 	}
 	info->end = ft_strdup(map[i]);
 	return (map[i]);
@@ -87,4 +87,3 @@ void	print_map(char **map, t_leminfo *info)
 	print_normal_room(map, info, start, end);
 	print_link(info);
 }
-

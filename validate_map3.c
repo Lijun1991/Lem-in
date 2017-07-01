@@ -75,7 +75,7 @@ int			get_room(char **map, t_leminfo *info)
 		if (map[i][0] != '#')
 		{
 			info->tmp_room_name = ft_strsplit(map[i], ' ');
-			if (LONG_CONDITION || info->tmp_room_name[3])
+			if (C1 || C2 || C3 || info->tmp_room_name[3])
 			{
 				deep_free(info->tmp_room_name);
 				return (1);

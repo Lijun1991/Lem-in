@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-int		ck_is_room(char *s, t_leminfo *info)
+int			ck_is_room(char *s, t_leminfo *info)
 {
 	int i;
 
@@ -26,7 +26,7 @@ int		ck_is_room(char *s, t_leminfo *info)
 	return (0);
 }
 
-int		ck_start_end(char **map, t_leminfo *info)
+int			ck_start_end(char **map, t_leminfo *info)
 {
 	int i;
 
@@ -45,11 +45,10 @@ int		ck_start_end(char **map, t_leminfo *info)
 	return (0);
 }
 
-static int		check_map_helper(char **map, t_leminfo *info)
+static int	check_map_helper(char **map, t_leminfo *info)
 {
 	if (get_check_link(map, info))
 	{
-		ft_printf("hello5\n");
 		free(info->nbr_of_ant);
 		free_room(info, map);
 		deep_free(info->link);
@@ -58,7 +57,6 @@ static int		check_map_helper(char **map, t_leminfo *info)
 	}
 	if (ck_link_repeat(info) || ck_start_end(map, info))
 	{
-		ft_printf("hello4\n");
 		free(info->nbr_of_ant);
 		free_room(info, map);
 		deep_free(info->link);
@@ -67,39 +65,32 @@ static int		check_map_helper(char **map, t_leminfo *info)
 	return (0);
 }
 
-int		check_map(char **map, t_leminfo *info)
+int			check_map(char **map, t_leminfo *info)
 {
 	if (info->count_end != 1 || info->count_start != 1)
 	{
-		ft_printf("hello3\n");
 		free(info->nbr_of_ant);
 		deep_free(map);
 		return (1);
 	}
 	if (check_nbr_of_ants(info->nbr_of_ant) || check_hash_hash(map, info))
 	{
-		ft_printf("hello1\n");
 		free(info->nbr_of_ant);
 		deep_free(map);
 		return (1);
 	}
 	if (get_room(map, info) || check_room(info))
 	{
-		ft_printf("hello\n");
 		free(info->nbr_of_ant);
-		// deep_free(info->tmp_room_name);
 		free_room(info, map);
 		return (1);
 	}
 	if (check_map_helper(map, info))
-	{
-		ft_printf("hello2\n");
 		return (1);
-	}
 	return (0);
 }
 
-void	validate_map(char **map, t_leminfo *info)
+void		validate_map(char **map, t_leminfo *info)
 {
 	int	i;
 
@@ -114,7 +105,7 @@ void	validate_map(char **map, t_leminfo *info)
 			info->nbr_of_ant = ft_strdup(map[i]);
 		}
 		i++;
-		while ( map[i] && !check_dash(map[i]))
+		while (map[i] && !check_dash_link(map[i]))
 		{
 			if (!ft_strcmp(map[i], "##start"))
 				info->count_start++;

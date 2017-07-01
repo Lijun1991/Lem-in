@@ -1,2 +1,5 @@
 *.o
 lem-in
+.DS_Store
+._.DS_Store
+a.out

@@ -12,18 +12,7 @@
 
 #include "lemin.h"
 
-char		*sep(char *s)
-{
-	char **tmp;
-	char *dst;
-
-	tmp = ft_strsplit(s, ' ');
-	dst = ft_strdup(tmp[0]);
-	deep_free(tmp);
-	return (dst);
-}
-
-int			num_linked_room_name(char *room_name, t_leminfo *info)
+int				num_linked_room_name(char *room_name, t_leminfo *info)
 {
 	int i;
 
@@ -37,9 +26,9 @@ int			num_linked_room_name(char *room_name, t_leminfo *info)
 	return (0);
 }
 
-void	fill_adj_matrix(t_leminfo *info, int **adj)
+static void		fill_adj_matrix(t_leminfo *info, int **adj)
 {
-	char **tmp;
+	char	**tmp;
 	int		i;
 
 	i = 0;
@@ -55,7 +44,7 @@ void	fill_adj_matrix(t_leminfo *info, int **adj)
 	}
 }
 
-int			**get_adj_matrix(t_leminfo *info)
+int				**get_adj_matrix(t_leminfo *info)
 {
 	int **adj;
 	int i;
@@ -78,7 +67,7 @@ int			**get_adj_matrix(t_leminfo *info)
 	return (adj);
 }
 
-int			*get_dst(int len, t_leminfo *info)
+int				*get_dst(int len, t_leminfo *info)
 {
 	int i;
 	int j;
@@ -96,7 +85,7 @@ int			*get_dst(int len, t_leminfo *info)
 	return (NULL);
 }
 
-int			*pick_path(t_leminfo *info)
+int				*pick_path(t_leminfo *info)
 {
 	int i;
 	int j;

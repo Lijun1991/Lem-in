@@ -22,15 +22,18 @@ void	check_range(int count, char **map)
 	}
 }
 
-int		check_dash(char *s)
+int		check_dash_link(char *s)
 {
 	int	i;
 
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '-')
-			return (1);
+		if (s[i] == '-' && i >= 1 && s[i + 1])
+		{
+			if (!(s[i - 1] == ' ' && ft_isdigit(s[i + 1])))
+				return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -66,17 +69,22 @@ int		ck_is_int(char *s)
 	while (s[i])
 	{
 		if (!ft_isdigit(s[i]))
-		// {
-		// 	ft_printf("hello2\n");
 			return (1);
-		// }
 		i++;
 	}
 	tmp = ft_ato_longlong(s);
 	if (tmp > 2147483647 || tmp < -2147483648)
-	// {
-	// 	ft_printf("hello1\n");
 		return (1);
-	// }
 	return (0);
+}
+
+char	*sep(char *s)
+{
+	char **tmp;
+	char *dst;
+
+	tmp = ft_strsplit(s, ' ');
+	dst = ft_strdup(tmp[0]);
+	deep_free(tmp);
+	return (dst);
 }

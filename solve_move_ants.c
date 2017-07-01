@@ -14,7 +14,7 @@
 
 int		*get_path_taken(t_leminfo *info)
 {
-	int *dst;
+	int	*dst;
 
 	dst = (int*)malloc(sizeof(int) * info->room_total);
 	ft_memset(dst, 0, sizeof(int) * info->room_total);

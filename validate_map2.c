@@ -58,16 +58,9 @@ int		check_room(t_leminfo *info)
 		i++;
 	}
 	i = 0;
-	while (info->room_x[i])
+	while (info->room_x[i] && info->room_y[i])
 	{
-		if (ck_is_int(info->room_x[i]))
-			return (1);
-		i++;
-	}
-	i = 0;
-	while (info->room_y[i])
-	{
-		if (ck_is_int(info->room_y[i]))
+		if (ck_is_int(info->room_x[i]) || ck_is_int(info->room_y[i]))
 			return (1);
 		i++;
 	}
