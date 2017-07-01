@@ -30,25 +30,6 @@ int		check_nbr_of_ants(char *s)
 	return (0);
 }
 
-int		ck_is_int(char *s)
-{
-	int			i;
-	long long	tmp;
-
-	i = 0;
-	tmp = 0;
-	while (s[i])
-	{
-		if (!ft_isdigit(s[i]))
-			return (1);
-		i++;
-	}
-	tmp = ft_ato_longlong(s);
-	if (tmp > 2147483647)
-		return (1);
-	return (0);
-}
-
 int		ck_is_room_name(char *s, t_leminfo *info)
 {
 	int	i;

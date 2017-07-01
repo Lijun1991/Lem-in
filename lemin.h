@@ -25,6 +25,18 @@
 # define false 0
 
 # define MAX_ROOM_TOTAL 10000
+# define LONG_CONDITION !(info->room_name[j] = ft_strdup(info->tmp_room_name[0])) || !(info->room_x[j] = ft_strdup(info->tmp_room_name[1])) || !(info->room_y[j] = ft_strdup(info->tmp_room_name[2]))
+
+typedef struct 	s_ant
+{
+	int tmp_path_len;
+	int ant_nbr;
+	int ant_reach_end;
+	int move_times;
+	int sign;
+	int	path_len;
+	int ants_total;
+}				t_ant;
 
 typedef struct 	s_vertex
 {
@@ -123,5 +135,12 @@ int		ck_is_int(char *s);
 int		ck_is_room_name(char *s, t_leminfo *info);
 int		check_room(t_leminfo *info);
 int		get_check_link(char **map, t_leminfo *info);
+
+/*
+** validate_map3.c 
+*/
+int			check_hash_hash(char **map, t_leminfo *info);
+int			get_room(char **map, t_leminfo *info);
+int			ck_link_repeat(t_leminfo *info);
 
 #endif
